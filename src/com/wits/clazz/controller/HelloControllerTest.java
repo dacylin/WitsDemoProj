@@ -25,7 +25,7 @@ public class HelloControllerTest {
 			put("mySQL_DRIVER","com.mysql.cj.jdbc.Driver");
 			put("mySQL_URL", "jdbc:mysql://localhost:3306/world");
 			put("mySQL_USER", "root");
-			put("mySQL_PASS", "11111111");
+			put("mySQL_PASS", "1234");
 			put("mySQL_SQL", "select * from city where countryCode = 'AFG'");
 		}
 	};
@@ -34,7 +34,7 @@ public class HelloControllerTest {
 	public void dbConnectNqueryTest() {
 		try {
 			
-			// ´ú¸Õ try-with-resourcr ³s½u DB & ¬d¸ê®Æ
+			// æ¸¬è©¦ try-with-resourcr é€£ç·š DB & æŸ¥è³‡æ–™
 			this.testQueryWithResource("access");
 			this.testQueryWithResource("mySQL");
 			
@@ -77,28 +77,28 @@ public class HelloControllerTest {
 	}
 
 	/**
-	 * ´ú¸Õ¸ê®Æ®w¨ú±o³s½u & Ãö³¬
+	 * æ¸¬è©¦è³‡æ–™åº«å–å¾—é€£ç·š & é—œé–‰
 	 */
 	private void testQueryAccessDB_2(String dbKind) {
 		Connection conn = null;
 		try {
-			// 1.¸ü¤J JDBC ÅX°Êµ{¦¡
+			// 1.è¼‰å…¥ JDBC é©…å‹•ç¨‹å¼
 			Class.forName(dbParams.get(dbKind + "_DRIVER"));
 
-			// 2.´£¨ÑJDBC URL
+			// 2.æä¾›JDBC URL
 			String dbUrl = dbParams.get(dbKind + "_URL");
 			String userId = dbParams.get(dbKind + "_USER");
 			String passWord = dbParams.get(dbKind + "_PASS");
 
-			// 3.¨ú±oConnection
+			// 3.å–å¾—Connection
 			conn = DriverManager.getConnection(dbUrl, userId, passWord);
 
 			if (!conn.isClosed()) {
-				System.out.println("¸ê®Æ®w³s½u¦¨¥\");
+				System.out.println("è³‡æ–™åº«é€£ç·šæˆåŠŸ");
 			}
 
 		} catch (ClassNotFoundException e) {
-			System.out.println("§ä¤£¨ìÅX°Êµ{¦¡Ãş§O");
+			System.out.println("æ‰¾ä¸åˆ°é©…å‹•ç¨‹å¼é¡åˆ¥");
 
 		} catch (SQLException se) {
 			System.out.println(se.getMessage());
@@ -108,10 +108,10 @@ public class HelloControllerTest {
 				try {
 					conn.close();
 
-					System.out.println(dbKind + " ¸ê®Æ®wÃö³¬¦¨¥\!!");
+					System.out.println(dbKind + " è³‡æ–™åº«é—œé–‰æˆåŠŸ!!");
 
 				} catch (SQLException e) {
-					System.out.println(String.format("Ãö³¬ %1$s ¸ê®Æ®wµo¥Í²§±`, e:%2$s", dbKind, e.getMessage()));
+					System.out.println(String.format("é—œé–‰ %1$s è³‡æ–™åº«ç™¼ç”Ÿç•°å¸¸, e:%2$s", dbKind, e.getMessage()));
 				}
 			}
 		}
